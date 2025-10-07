@@ -10,7 +10,7 @@ WIDTH, HEIGHT = 2560, 1440
 WIN = pygame.display.set_mode(((WIDTH, HEIGHT)) , pygame.RESIZABLE)
 pygame.display.set_caption("BOGO SORT")
 
-NumbersInArray = 3
+NumbersInArray = 5
 bogo = [number for number in range(1, NumbersInArray + 1)]
 
 Color = (255,105,180)
@@ -62,9 +62,10 @@ while Run:
             pitch = bogo[bogos] / NumbersInArray  # 0.1 to 1.0
             pitch_factor = 1.0 / pitch  # Lower pitch_factor = higher pitch
             play_beep_with_pitch(pitch_factor)
+            pygame.display.flip()
         if bogo == sorted(bogo):
             BogoIsSorted = True
             print("Sorted!")
-        pygame.display.flip()
+
 
 
