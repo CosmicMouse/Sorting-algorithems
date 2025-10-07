@@ -51,7 +51,9 @@ while Run:
             exit()
             
     if IsSorted == False:
+        WIN.fill((0, 0, 0))
         for Sorting in range(len(Sorter)):
+
             Numb = Sorter[Sorting] - 1
             Sorter[Sorting], Sorter[Numb] = Sorter[Numb], Sorter[Sorting]
 
@@ -61,7 +63,6 @@ while Run:
             play_beep_with_pitch(pitch_factor)
             
             RectHeight = (Sorter[Sorting] / NumbersInArray) * HEIGHT
-            PrevCollum = pygame.draw.rect(WIN, (0, 0, 0), (Sorting * RectWidth, 0, RectWidth, HEIGHT))  
             PrevCollum = pygame.draw.rect(WIN, Color, (Sorting * RectWidth, HEIGHT - RectHeight, RectWidth, RectHeight))
             pygame.display.flip()
             
