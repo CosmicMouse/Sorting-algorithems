@@ -6,7 +6,8 @@ import numpy as np
 pygame.display.init()
 pygame.mixer.init()
 
-WIDTH, HEIGHT = 2560, 1440
+# WIDTH, HEIGHT = 2560, 1440
+WIDTH, HEIGHT = 1080, 720
 WIN = pygame.display.set_mode(((WIDTH, HEIGHT)) , pygame.RESIZABLE)
 pygame.display.set_caption("OTHER SORT")
 
@@ -26,7 +27,7 @@ Run = True
 audio_volume = 0.2  # Adjust this value as needed
 
 # Load base beep sound once
-base_sound = pygame.mixer.Sound('Beep2.wav')
+base_sound = pygame.mixer.Sound('Sorting-algorithems/Beep2.wav')
 base_sound.set_volume(audio_volume)
 base_array = pygame.sndarray.array(base_sound)
 sound_sample_rate = base_sound.get_length() / base_array.shape[0]
