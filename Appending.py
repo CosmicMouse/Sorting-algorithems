@@ -7,13 +7,16 @@ pygame.display.init()
 pygame.mixer.init()
 
 # WIDTH, HEIGHT = 2560, 1440
-WIDTH, HEIGHT = 1440, 720
+WIDTH, HEIGHT = 1080, 720
 WIN = pygame.display.set_mode(((WIDTH, HEIGHT)) , pygame.RESIZABLE)
 pygame.display.set_caption("OTHER SORT")
 
-NumbersInArray = 1000
+NumbersInArray = 100
 Sorter = [number for number in range(1, NumbersInArray + 1)]
 random.shuffle(Sorter)
+SortingArray = []
+Numb = 1
+
 
 Color = (255,105,180)
 print(Sorter)
@@ -43,9 +46,7 @@ def play_beep_with_pitch(pitch_factor):
     sound.play()
 
 while Run:
-    clock = pygame.time.Clock()
-    clock.tick(FPS)
-    
+    pygame.time.delay(FPS)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -53,31 +54,32 @@ while Run:
             
     if IsSorted == False:
         WIN.fill((0, 0, 0))
-        for Sorting in range(len(Sorter)):
-
-            Numb = Sorter[Sorting] - 1
-            Sorter[Sorting], Sorter[Numb] = Sorter[Numb], Sorter[Sorting]
-
-
+        for Sorting in range(0, Numb-1):
+            RectHeight = (Sorter[Sorting]/NumbersInArray) * HEIGHT
+            pygame.draw.rect(WIN, Color, (Sorting * RectWidth, HEIGHT - RectHeight, RectWidth, RectHeight))
             pitch = Sorter[Sorting] / NumbersInArray 
             pitch_factor = 1.0 / pitch  
             play_beep_with_pitch(pitch_factor)
-            
-            RectHeight = (Sorter[Sorting] / NumbersInArray) * HEIGHT
-            PrevCollum = pygame.draw.rect(WIN, Color, (Sorting * RectWidth, HEIGHT - RectHeight, RectWidth, RectHeight))
             pygame.display.flip()
-            
-        if Sorter == sorted(Sorter):
-            WIN.fill((0, 0, 0))
-            for Sorting in range(len(Sorter)):
 
-                pitch = Sorter[Sorting] / NumbersInArray 
-                pitch_factor = 1.0 / pitch  
-                play_beep_with_pitch(pitch_factor)
 
-                RectHeight = (Sorter[Sorting] / NumbersInArray) * HEIGHT
-                pygame.draw.rect(WIN, Color, (Sorting * RectWidth, HEIGHT - RectHeight, RectWidth, RectHeight))
+        for Sorting in range(Numb - 1,len(Sorter)):
+
+            if Sorter[Sorting] == Numb:
+                SortingArray.append(Sorter[Sorting])
+                Sorter[Numb - 1], Sorter[Sorting] = SortingArray[Numb - 1], Sorter[Numb - 1]
+                print(SortingArray)
+                print(Sorter)
+                print(Numb)
+                Numb += 1
+
+            RectHeight = (Sorter[Sorting]/NumbersInArray) * HEIGHT
+            pygame.draw.rect(WIN, Color, (Sorting * RectWidth, HEIGHT - RectHeight, RectWidth, RectHeight))
+            pitch = Sorter[Sorting] / NumbersInArray 
+            pitch_factor = 1.0 / pitch  
+            play_beep_with_pitch(pitch_factor)
             pygame.display.flip()
+        if SortingArray == sorted(Sorter):
             IsSorted = True
             print("Sorted!")
             print(Sorter)
